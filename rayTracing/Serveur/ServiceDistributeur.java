@@ -4,9 +4,8 @@ import raytracer.Scene;
 import raytracer.Image;
 import java.rmi.RemoteException;
 
-import Esclave.ServiceRayTracer;
+import ServiceCalcul.ServiceRayTracer;
 
-import java.rmi.ConnectException;
 import java.rmi.Remote;
 
 public interface ServiceDistributeur extends Remote {
