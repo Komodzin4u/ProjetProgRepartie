@@ -1,4 +1,4 @@
-package Client;
+package Serveur;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import raytracer.Image;
