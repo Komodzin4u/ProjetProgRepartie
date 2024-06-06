@@ -4,7 +4,7 @@ import java.rmi.RemoteException;
 
 import raytracer.Image;
 import raytracer.Scene;
-
+import Esclave.ServiceRayTracer;
 public class ServiceDistributionRayTracer implements ServiceDistributeur {
      
     public void enregistrerClient(ServiceRayTracer r) throws RemoteException{
