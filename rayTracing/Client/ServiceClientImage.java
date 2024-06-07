@@ -4,7 +4,6 @@ import raytracer.Disp;
 import raytracer.Image;
 import raytracer.Scene;
 
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 /**
