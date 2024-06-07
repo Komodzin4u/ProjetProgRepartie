@@ -31,7 +31,7 @@ public class LancerServiceClient {
         // au client les fragments d'image selon l'ordre dans lequel ils seront retournés
         ServiceClient rdServiceClient = (ServiceClient) UnicastRemoteObject.exportObject(serviceClient, 0);
 
-        rdServiceCentral.methodeDuServeur(serviceClient.getScene(), largeur, hauteur);
+        rdServiceCentral.methodeDuServeur(rdServiceClient, largeur, hauteur);
         // et à partir de cet appel, le service central va commencer à utiliser afficherFragments du client
 
 
