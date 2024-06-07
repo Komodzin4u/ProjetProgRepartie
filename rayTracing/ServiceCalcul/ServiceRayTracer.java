@@ -1,10 +1,8 @@
-package Client;
-
-import raytracer.Image;
-import raytracer.Scene;
-
+package Esclave;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import raytracer.Image;
+import raytracer.Scene;
 
 public interface ServiceRayTracer extends Remote{
     /**

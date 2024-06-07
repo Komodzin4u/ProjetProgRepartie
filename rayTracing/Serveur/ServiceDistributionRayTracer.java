@@ -4,9 +4,9 @@ import java.rmi.ConnectException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import ServiceCalcul.ServiceRayTracer;
 import raytracer.Image;
 import raytracer.Scene;
-
 public class ServiceDistributionRayTracer implements ServiceDistributeur {
     private ArrayList<ServiceRayTracer> serviceCalcul;
      
