@@ -46,12 +46,19 @@ public class LancerRaytracer {
         // Ici on calcule toute l'image (0,0) -> (largeur, hauteur)
 
         int x0 = 0, y0 = 0;
-        int l = largeur, h = hauteur;
+        // int l = largeur, h = hauteur;
 
         // Chronométrage du temps de calcul
         Instant debut = Instant.now();
         System.out.println("Calcul de l'image :\n - Coordonnées : " + x0 + "," + y0
                 + "\n - Taille " + largeur + "x" + hauteur);
+
+        int nbMachines=8;
+        int l=largeur/nbMachines;
+        int h=hauteur/nbMachines;
+        while(x0!=largeur && y0!=hauteur){
+            
+        }
         Image image = scene.compute(x0, y0, l, h);
         Instant fin = Instant.now();
 
@@ -62,21 +69,21 @@ public class LancerRaytracer {
         // Affichage de l'image calculée
         disp.setImage(image, x0, y0);
 
-        try {
-            Registry reg = LocateRegistry.getRegistry("localhost");
-            try {
+        // try {
+        //     Registry reg = LocateRegistry.getRegistry("localhost");
+        //     try {
 
-                ServiceDistributionRayTracer service = new ServiceDistributionRayTracer();
-                ServiceDistributeur rd1 = (ServiceDistributeur) UnicastRemoteObject.exportObject(service, 0);
+        //         ServiceDistributionRayTracer service = new ServiceDistributionRayTracer();
+        //         ServiceDistributeur rd1 = (ServiceDistributeur) UnicastRemoteObject.exportObject(service, 0);
 
-                reg.rebind("distributeur", rd1);
+        //         reg.rebind("distributeurNoeuds", rd1);
 
-            } catch (RemoteException e) {
-                System.out.println("Erreur lors de l'exportation de l'objet");
-            }
-        } catch (RemoteException e) {
-            System.out.println("Problème de connexion à l'annuaire");
-        }
+        //     } catch (RemoteException e) {
+        //         System.out.println("Erreur lors de l'exportation de l'objet");
+        //     }
+        // } catch (RemoteException e) {
+        //     System.out.println("Problème de connexion à l'annuaire");
+        // }
 
     }
 

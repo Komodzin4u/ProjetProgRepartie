@@ -1,32 +1,32 @@
 package Serveur;
 
+import java.rmi.ConnectException;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 import raytracer.Image;
 import raytracer.Scene;
 
 public class ServiceDistributionRayTracer implements ServiceDistributeur {
+    private ArrayList<ServiceRayTracer> serviceCalcul;
      
-    public void enregistrerClient(ServiceRayTracer r) throws RemoteException{
-
+    /**
+     * Permet aux esclaves de s'enregistrer sur le service central
+     * 
+     * @param r
+     * @throws RemoteException
+     */
+    public void enregistrerEsclave(ServiceRayTracer r) throws RemoteException{
+        serviceCalcul.add(r);
     }
 
     /**
-     * Méthode qui appelle
-     * 
-     * @param x0
-     * @param y0
-     * @param largeur
-     * @param hauteur
-     * @param scene
-     * @throws RemoteException
-     * @throws java.rmi.ConnectException
+     * Méthode qui permet de répartir les fragments d'images
      */
-    public void computeImage(int x0, int y0, int largeur, int hauteur, Scene scene) throws RemoteException, java.rmi.ConnectException{
-
-    }
-
-    public void recupererImage(Image image, int x0, int y0) throws RemoteException{
+    public void genererImage(Scene s, int largeur, int hauteur) throws RemoteException{
+        int nbMachines=this.serviceCalcul.size()*2;
+        int l=largeur/nbMachines;
+        int h=hauteur/nbMachines;
         
     }
 
