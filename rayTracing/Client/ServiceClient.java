@@ -2,12 +2,13 @@ package Client;
 
 import raytracer.Image;
 
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 /**
  * Interface du Client. Le client c'est celui qui appelle le service central en lui demandant telle image
  */
-public interface ServiceClient {
+public interface ServiceClient extends Remote {
 
     /**
      * Permet au service central d'appeler le client pour que ce dernier affiche le fragment
