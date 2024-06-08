@@ -84,7 +84,7 @@ public class ServiceDistributionRayTracer implements ServiceDistributeur {
             while (y0 < hauteur && (y0 + h) <= hauteur) {
                 for (ServiceRayTracer sc : this.servicesCalculs.keySet()) {
 
-                    System.out.println("Envoie d'un fragement d'image à "+this.servicesCalculs.get(sc));
+                    System.out.println("Envoi d'un fragement d'image à "+this.servicesCalculs.get(sc));
 
                     int actualL = l;
                     int actualH = h;

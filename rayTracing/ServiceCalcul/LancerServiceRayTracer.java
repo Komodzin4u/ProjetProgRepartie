@@ -23,7 +23,7 @@ public class LancerServiceRayTracer {
                     ServiceScene sc = new ServiceScene();
                     ServiceRayTracer rc =(ServiceRayTracer)UnicastRemoteObject.exportObject(sc, 0);
                     distributeurNoeuds.enregistrerEsclave(rc);
-                    System.out.println("Le client c'est bien enregistré");
+                    System.out.println("Le client s'est bien enregistré");
                 } catch (RemoteException e) {
                     System.out.println("Impossible d'enregistrer le client");
                 }
