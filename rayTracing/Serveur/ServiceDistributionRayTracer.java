@@ -15,19 +15,27 @@ public class ServiceDistributionRayTracer implements ServiceDistributeur {
     public ServiceDistributionRayTracer(){
         this.servicesCalculs=new ConcurrentHashMap<ServiceRayTracer, String>();
     }
+    /* 
+     * Méthode qui retourne un ServiceRayTracer de la liste
+     */
     public ServiceRayTracer distribuerNoeud()throws RemoteException{
+        //On verifie que le Distributeur possède des ServiceRayTracer
         if(!servicesCalculs.isEmpty()){
             boolean envoyer = false;
             while (!envoyer) {
+                //On prend un noeud aléatoire dans la liste
                 int index =(int)Math.floor(Math.random()*servicesCalculs.size());
                 try{
                     synchronized(servicesCalculs){
+                        //On vérifie que le noeud n'est pas occupé
                         ServiceRayTracer esclave =(ServiceRayTracer)servicesCalculs.keySet().toArray()[index];
+                        //Si il n'est pas occupé on le renvoie sinon on retourne dans la boucle prendre un nouveau noeud
                         if(!esclave.estOccupe()){
                             envoyer = true;
                             return esclave;
                         }
                     }
+                    //Si on catch une Exception, c'est que le noeud n'est plus disponible, on le supprime donc de la liste et on en prend un nouveau
                 }catch(RemoteException e){
                     synchronized(servicesCalculs){
                         ServiceRayTracer esclave = (ServiceRayTracer)servicesCalculs.keySet().toArray()[index];

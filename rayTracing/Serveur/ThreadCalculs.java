@@ -34,12 +34,19 @@ public class ThreadCalculs extends Thread {
             System.out.println("Fragment généré, envoie vers le client");
             client.afficherFragment(image, x0, y0);
         } catch (RemoteException e) {
+            /*
+             * Si on catch une erreur dans le thread c'est que le ServiceRayTracer n'est plus disponible
+             * 
+             */
             try{
+            //On supprime donc le noeud de la liste des noeuds du distributeur
             synchronized (distributeur.getServicesRayTracer()) {
                 System.out.println("suppression de "+distributeur.getServicesRayTracer().get(serviceCalcul));
                 distributeur.getServicesRayTracer().remove(serviceCalcul);
             }
+            //On récupère un nouveau noeud disponible
             ServiceRayTracer newSlave = distributeur.distribuerNoeud();
+            //On lance un nouveau thread pour faire le calcul avec le nouveau noeuds
             ThreadCalculs newThread = new ThreadCalculs(newSlave, distributeur, client, x0, y0, l, h, scene);
             newThread.start();
         }catch(RemoteException error){

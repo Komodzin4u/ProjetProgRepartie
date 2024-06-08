@@ -23,7 +23,13 @@ public interface ServiceDistributeur extends Remote {
      */
     public void genererImage(ServiceClient client, int largeur, int hauteur) throws RemoteException;
 
+    /*
+     * Méthode qui renvoie un noeud disponible, actif et pas occupé
+     */
     public ServiceRayTracer distribuerNoeud()throws RemoteException;
 
+    /*
+     * Méthode qui renvoie la liste de noeuds
+     */
     public Map<ServiceRayTracer,String> getServicesRayTracer() throws RemoteException;
 }

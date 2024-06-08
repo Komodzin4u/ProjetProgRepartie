@@ -17,7 +17,13 @@ public interface ServiceRayTracer extends Remote{
      */
     public Image genererImage(int x0, int y0, int w, int h,Scene c)throws RemoteException;
 
+    /*
+     * Méthode utilisé pour ping le service Calcul et verifié qu'il est toujours connecté au serveur
+     */
     public boolean estConnecte() throws RemoteException;
 
+    /*
+     * Méthode pour savoir si le service Calcul est deja en train de réaliser un calcul
+     */
     public boolean estOccupe() throws RemoteException;
 }
