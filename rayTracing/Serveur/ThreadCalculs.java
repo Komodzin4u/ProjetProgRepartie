@@ -1,13 +1,10 @@
 package Serveur;
 
-import Serveur.ServiceDistributeur;
+
 import ServiceCalcul.ServiceRayTracer;
 import raytracer.Image;
 import raytracer.Scene;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.concurrent.ConcurrentHashMap;
 
 import Client.ServiceClient;
 
