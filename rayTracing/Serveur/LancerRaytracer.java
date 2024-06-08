@@ -19,6 +19,7 @@ public class LancerRaytracer {
                 ServiceDistributionRayTracer service = new ServiceDistributionRayTracer();
                 ServiceDistributeur rd1 = (ServiceDistributeur) UnicastRemoteObject.exportObject(service, 0);
                 reg.rebind("DistributeurFragments", rd1);
+                System.out.println("Le serveur est lancé!");
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
