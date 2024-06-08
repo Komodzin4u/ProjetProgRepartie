@@ -6,18 +6,19 @@ import raytracer.Scene;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 import Client.ServiceClient;
 
 public class ThreadCalculs extends Thread {
 
     private ServiceRayTracer serviceCalcul;
-    private HashMap<ServiceRayTracer, String> servicesCalculs;
+    private ConcurrentHashMap<ServiceRayTracer, String> servicesCalculs;
     private ServiceClient client;
     private int x0, y0, l, h;
     private Scene scene;
 
-    public ThreadCalculs(ServiceRayTracer serviceCalcul, HashMap<ServiceRayTracer, String> servicesCalculs, ServiceClient client, int x0, int y0, int l, int h, Scene scene) {
+    public ThreadCalculs(ServiceRayTracer serviceCalcul, ConcurrentHashMap<ServiceRayTracer, String> servicesCalculs, ServiceClient client, int x0, int y0, int l, int h, Scene scene) {
         this.serviceCalcul = serviceCalcul;
         this.servicesCalculs = servicesCalculs;
         this.client = client;
