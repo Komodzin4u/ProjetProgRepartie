@@ -1,9 +1,8 @@
 package Serveur;
 
-import raytracer.Scene;
-import raytracer.Image;
 import java.rmi.RemoteException;
 
+import Client.ServiceClient;
 import ServiceCalcul.ServiceRayTracer;
 
 import java.rmi.Remote;

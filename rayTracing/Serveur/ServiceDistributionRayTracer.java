@@ -1,12 +1,10 @@
 package Serveur;
 
-import java.rmi.ConnectException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import Client.ServiceClient;
 import ServiceCalcul.ServiceRayTracer;
-import raytracer.Image;
-import raytracer.Disp;
 import raytracer.Scene;
 public class ServiceDistributionRayTracer implements ServiceDistributeur {
     private ArrayList<ServiceRayTracer> servicesCalculs;
@@ -39,7 +37,7 @@ public class ServiceDistributionRayTracer implements ServiceDistributeur {
         int x0 = 0;
         int y0 = 0;
 
-        while (y0 < hauteur && (y0 + h) < hauteur) {
+        while (y0 < hauteur && (y0 + h) <= hauteur) {
             for (ServiceRayTracer sc : this.servicesCalculs) {
                 int actualL = l;
                 int actualH = h;

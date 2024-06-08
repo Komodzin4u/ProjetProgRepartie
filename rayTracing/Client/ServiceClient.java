@@ -24,5 +24,5 @@ public interface ServiceClient extends Remote {
      * Permet de récupérer la scene du client
      * @return la scene
      */
-    public Scene getScene();
+    public Scene getScene() throws RemoteException;
 }
