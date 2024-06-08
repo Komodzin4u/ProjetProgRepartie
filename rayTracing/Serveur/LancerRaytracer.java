@@ -1,15 +1,11 @@
 package Serveur;
 
-import java.time.Instant;
+
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.time.Duration;
 
-import raytracer.Disp;
-import raytracer.Scene;
-import raytracer.Image;
 
 public class LancerRaytracer {
 
@@ -22,11 +18,9 @@ public class LancerRaytracer {
 
                 ServiceDistributionRayTracer service = new ServiceDistributionRayTracer();
                 ServiceDistributeur rd1 = (ServiceDistributeur) UnicastRemoteObject.exportObject(service, 0);
-
                 reg.rebind("DistributeurFragments", rd1);
-
             } catch (RemoteException e) {
-                System.out.println("Erreur lors de l'exportation de l'objet");
+                e.printStackTrace();
             }
         } catch (RemoteException e) {
             System.out.println("Problème de connexion à l'annuaire");
