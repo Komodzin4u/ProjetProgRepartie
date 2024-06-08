@@ -1,8 +1,9 @@
 package Client;
 
-import raytracer.Scene;
-import raytracer.Image;
 import java.rmi.RemoteException;
+
+import ServiceCalcul.ServiceRayTracer;
+
 import java.rmi.Remote;
 
 public interface ServiceDistributeur extends Remote {
@@ -13,9 +14,10 @@ public interface ServiceDistributeur extends Remote {
      * @param r
      * @throws RemoteException
      */
-    public void enregistrerEsclaves(ServiceRayTracer r) throws RemoteException;
+    public void enregistrerEsclave(ServiceRayTracer r) throws RemoteException;
 
-    public void enregistrerClient(ServiceClient c) throws RemoteException;
-
-    public int getNoeud() throws RemoteException, ConnectException;
+    /**
+     * Méthode qui permet de construire l'image pour le client
+     */
+    public void genererImage(ServiceClient client, int largeur, int hauteur) throws RemoteException;
 }

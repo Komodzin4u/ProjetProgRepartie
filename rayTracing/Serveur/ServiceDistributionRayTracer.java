@@ -6,9 +6,14 @@ import java.util.ArrayList;
 
 import ServiceCalcul.ServiceRayTracer;
 import raytracer.Image;
+import raytracer.Disp;
 import raytracer.Scene;
 public class ServiceDistributionRayTracer implements ServiceDistributeur {
-    private ArrayList<ServiceRayTracer> serviceCalcul;
+    private ArrayList<ServiceRayTracer> servicesCalculs;
+
+    public ServiceDistributionRayTracer(){
+        this.servicesCalculs=new ArrayList<ServiceRayTracer>();
+    }
      
     /**
      * Permet aux esclaves de s'enregistrer sur le service central
@@ -17,17 +22,46 @@ public class ServiceDistributionRayTracer implements ServiceDistributeur {
      * @throws RemoteException
      */
     public void enregistrerEsclave(ServiceRayTracer r) throws RemoteException{
-        serviceCalcul.add(r);
+        synchronized(servicesCalculs) {
+            servicesCalculs.add(r);
+        }
     }
 
     /**
      * Méthode qui permet de répartir les fragments d'images
      */
-    public void genererImage(Scene s, int largeur, int hauteur) throws RemoteException{
-        int nbMachines=this.serviceCalcul.size()*2;
-        int l=largeur/nbMachines;
-        int h=hauteur/nbMachines;
-        
+    public void genererImage(ServiceClient client, int largeur, int hauteur) throws RemoteException {
+        int nbMachines = this.servicesCalculs.size() * 2;
+        int l = largeur / nbMachines;
+        int h = hauteur / nbMachines;
+
+        Scene scene = client.getScene();
+        int x0 = 0;
+        int y0 = 0;
+
+        while (y0 < hauteur && (y0 + h) < hauteur) {
+            for (ServiceRayTracer sc : this.servicesCalculs) {
+                int actualL = l;
+                int actualH = h;
+                if (Math.abs((x0 + l) - largeur) < l) {
+                    actualL += Math.abs((x0 + l) - largeur);
+                }
+                if (Math.abs((y0 + h) - hauteur) < h) {
+                    actualH += Math.abs((y0 + h) - hauteur);
+                }
+
+                // Créer et démarrer un thread pour chaque fragment
+                ThreadCalculs thread = new ThreadCalculs(sc, this.servicesCalculs, client, x0, y0, actualL, actualH, scene);
+                thread.start();
+
+                x0 += l;
+                if (x0 >= largeur || (x0 + l) > largeur) {
+                    x0 = 0;
+                    y0 += h;
+                }
+            }
+        }
     }
+
 
 }

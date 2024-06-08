@@ -1,12 +1,9 @@
-package Serveur;
+package ServiceCalcul;
 
-import raytracer.Scene;
-import raytracer.Image;
-import java.rmi.RemoteException;
-
-import ServiceCalcul.ServiceRayTracer;
+import Serveur.ServiceClient;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 
 public interface ServiceDistributeur extends Remote {
 

@@ -1,4 +1,4 @@
-package Esclave;
+package ServiceCalcul;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import raytracer.Image;

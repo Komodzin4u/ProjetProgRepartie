@@ -1,4 +1,4 @@
-package Client;
+package Serveur;
 
 import raytracer.Image;
 import raytracer.Scene;
