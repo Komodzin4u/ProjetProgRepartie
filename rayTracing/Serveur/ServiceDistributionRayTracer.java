@@ -17,7 +17,32 @@ public class ServiceDistributionRayTracer implements ServiceDistributeur {
     public ServiceDistributionRayTracer(){
         this.servicesCalculs=new ConcurrentHashMap<ServiceRayTracer, String>();
     }
-     
+    public ServiceRayTracer distribuerNoeud()throws RemoteException{
+        if(!servicesCalculs.isEmpty()){
+            boolean envoyer = false;
+            while (!envoyer) {
+                int index =(int)Math.floor(Math.random()*servicesCalculs.size());
+                try{
+                    synchronized(servicesCalculs){
+                        ServiceRayTracer esclave =(ServiceRayTracer)servicesCalculs.keySet().toArray()[index];
+                        if(!esclave.estOccupe()){
+                            envoyer = true;
+                            return esclave;
+                        }
+                    }
+                }catch(RemoteException e){
+                    synchronized(servicesCalculs){
+                        ServiceRayTracer esclave = (ServiceRayTracer)servicesCalculs.keySet().toArray()[index];
+                        System.out.println("suppression de "+servicesCalculs.get(esclave));
+                        servicesCalculs.remove(esclave);
+                    }
+                }    
+            }
+            
+
+        }
+        return null;
+    }
     /**
      * Permet aux esclaves de s'enregistrer sur le service central
      * 
@@ -67,7 +92,7 @@ public class ServiceDistributionRayTracer implements ServiceDistributeur {
                     try{
                         sc.estConnecte();
                         // Créer et démarrer un thread pour chaque fragment
-                        ThreadCalculs thread = new ThreadCalculs(sc, this.servicesCalculs, client, x0, y0, actualL, actualH, scene);
+                        ThreadCalculs thread = new ThreadCalculs(sc, this, client, x0, y0, actualL, actualH, scene);
                         thread.start();
                         x0 += l;
                         if (x0 >= largeur || (x0 + l) > largeur) {
@@ -87,6 +112,9 @@ public class ServiceDistributionRayTracer implements ServiceDistributeur {
                 }
             }
         }
+    }
+    public Map<ServiceRayTracer, String> getServicesRayTracer() throws RemoteException {
+        return this.servicesCalculs;
     }
 
 

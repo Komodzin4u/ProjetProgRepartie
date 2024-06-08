@@ -1,6 +1,7 @@
 package Serveur;
 
 import java.rmi.RemoteException;
+import java.util.Map;
 
 import Client.ServiceClient;
 import ServiceCalcul.ServiceRayTracer;
@@ -21,4 +22,8 @@ public interface ServiceDistributeur extends Remote {
      * Méthode qui permet de construire l'image pour le client
      */
     public void genererImage(ServiceClient client, int largeur, int hauteur) throws RemoteException;
+
+    public ServiceRayTracer distribuerNoeud()throws RemoteException;
+
+    public Map<ServiceRayTracer,String> getServicesRayTracer() throws RemoteException;
 }

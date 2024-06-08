@@ -18,4 +18,6 @@ public interface ServiceRayTracer extends Remote{
     public Image genererImage(int x0, int y0, int w, int h,Scene c)throws RemoteException;
 
     public boolean estConnecte() throws RemoteException;
+
+    public boolean estOccupe() throws RemoteException;
 }
