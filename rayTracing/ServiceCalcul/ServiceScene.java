@@ -14,4 +14,8 @@ public class ServiceScene implements ServiceRayTracer{
 		}
 		return c.compute(x0,y0,w,h);
 	 }
+
+	 public boolean estConnecte() throws RemoteException{
+		return true;
+	 }
 }

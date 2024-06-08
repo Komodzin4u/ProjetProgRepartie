@@ -37,11 +37,12 @@ public class ServiceClientImage implements ServiceClient {
 
     @Override
     public void afficherFragment(Image image, int x0, int y0) throws RemoteException {
+        System.out.println("Réception d'un fragment d'image. Placement du fragment en x: "+x0+", y: "+y0);
         this.fenetre.setImage(image, x0, y0);
     }
 
 
-    public Scene getScene(){
+    public Scene getScene() throws RemoteException{
         return this.scene;
     }
 
