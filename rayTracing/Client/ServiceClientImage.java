@@ -6,8 +6,6 @@ import raytracer.Scene;
 
 import java.rmi.RemoteException;
 
-import Serveur.ServiceDistributeur;
-
 /**
  * Classe qui correspond au service client, c'est à dire le client qui contacte le service central
  * pour lui demander de réaliser un calcul pour son image
