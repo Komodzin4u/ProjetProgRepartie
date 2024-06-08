@@ -4,6 +4,8 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
+import Serveur.ServiceDistributeur;
+
 public class LancerServiceClient {
 
     public static void main(String[] args) throws Exception {
@@ -19,7 +21,7 @@ public class LancerServiceClient {
         int hauteur = Integer.parseInt(args[3]);
         String fichier = "simple.txt";
 
-        if(args[4] != null){
+        if(args.length==5){
             fichier = args[4];
         }
 

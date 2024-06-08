@@ -6,6 +6,8 @@ import raytracer.Scene;
 
 import java.rmi.RemoteException;
 
+import Serveur.ServiceDistributeur;
+
 /**
  * Classe qui correspond au service client, c'est à dire le client qui contacte le service central
  * pour lui demander de réaliser un calcul pour son image
@@ -16,8 +18,6 @@ public class ServiceClientImage implements ServiceClient {
     private Scene scene;
 
     private Disp fenetre;
-
-    private ServiceDistributeur serviceCentral;
 
     /**
      * On crée un objet client qui crée la scène et la fenêtre pour ensuite recevoir les fragments

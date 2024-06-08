@@ -6,6 +6,8 @@ import raytracer.Scene;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import Client.ServiceClient;
+
 public class ThreadCalculs extends Thread {
 
     private ServiceRayTracer serviceCalcul;

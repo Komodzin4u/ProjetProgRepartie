@@ -3,6 +3,9 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException; 
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+
+import Serveur.ServiceDistributeur;
+
 import java.rmi.registry.LocateRegistry;
 public class LancerServiceRayTracer {
     
