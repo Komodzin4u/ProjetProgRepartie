@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import Client.ServiceClient;
 import ServiceCalcul.ServiceRayTracer;
 import raytracer.Scene;
+import java.rmi.server.RemoteServer;
+import java.rmi.server.ServerNotActiveException;
 public class ServiceDistributionRayTracer implements ServiceDistributeur {
     private ArrayList<ServiceRayTracer> servicesCalculs;
 
@@ -39,6 +41,13 @@ public class ServiceDistributionRayTracer implements ServiceDistributeur {
 
         while (y0 < hauteur && (y0 + h) <= hauteur) {
             for (ServiceRayTracer sc : this.servicesCalculs) {
+                String host ="";
+		    try{
+			    host = RemoteServer.getClientHost();
+			    System.out.println("Envoie d'un fragement d'image à "+host);
+		    }catch(ServerNotActiveException e){
+
+		    }
                 int actualL = l;
                 int actualH = h;
                 if (Math.abs((x0 + l) - largeur) < l) {
