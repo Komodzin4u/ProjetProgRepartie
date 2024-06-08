@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import Client.ServiceClient;
 import ServiceCalcul.ServiceRayTracer;
@@ -11,10 +12,10 @@ import raytracer.Scene;
 import java.rmi.server.RemoteServer;
 import java.rmi.server.ServerNotActiveException;
 public class ServiceDistributionRayTracer implements ServiceDistributeur {
-    private HashMap<ServiceRayTracer, String> servicesCalculs;
+    private ConcurrentHashMap<ServiceRayTracer, String> servicesCalculs;
 
     public ServiceDistributionRayTracer(){
-        this.servicesCalculs=new HashMap<ServiceRayTracer, String>();
+        this.servicesCalculs=new ConcurrentHashMap<ServiceRayTracer, String>();
     }
      
     /**
@@ -70,6 +71,10 @@ public class ServiceDistributionRayTracer implements ServiceDistributeur {
                         thread.start();
                         x0 += l;
                         if (x0 >= largeur || (x0 + l) > largeur) {
+                            if(y0 >= hauteur && (y0 + h) > hauteur){
+                                System.out.println("Yoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
+                                break;
+                            }
                             x0 = 0;
                             y0 += h;
                         }
