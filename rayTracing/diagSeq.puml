@@ -1,0 +1,78 @@
+@startuml
+
+actor Client
+participant LancerServiceClient
+participant LancerRaytracer
+participant LancerServiceRayTracer
+participant Registry
+participant ServiceDistributeur
+participant ServiceRayTracer
+participant ServiceClientImage
+
+LancerRaytracer -> Registry: getRegistry("localhost")
+activate Registry
+Registry --> LancerRaytracer: Registry object
+deactivate Registry
+LancerRaytracer -> ServiceDistributeur: new ServiceDistributionRayTracer()
+activate ServiceDistributeur
+ServiceDistributeur -> LancerRaytracer: ServiceDistributeur object
+deactivate ServiceDistributeur
+LancerRaytracer -> ServiceDistributeur: exportObject(service, 0)
+activate ServiceDistributeur
+ServiceDistributeur --> LancerRaytracer: Stub object
+deactivate ServiceDistributeur
+LancerRaytracer -> Registry: rebind("DistributeurFragments", rd1)
+activate Registry
+Registry --> LancerRaytracer: void
+deactivate Registry
+LancerRaytracer -> LancerRaytracer: System.out.println("Le serveur est lancé!")
+LancerRaytracer --> LancerRaytracer: void
+
+LancerServiceRayTracer -> Registry: getRegistry(args[0], port)
+activate Registry
+Registry --> LancerServiceRayTracer: Registry object
+deactivate Registry
+LancerServiceRayTracer -> ServiceDistributeur: lookup("DistributeurFragments")
+activate ServiceDistributeur
+ServiceDistributeur --> LancerServiceRayTracer: ServiceDistributeur object
+deactivate ServiceDistributeur
+LancerServiceRayTracer -> ServiceRayTracer: new ServiceScene()
+activate ServiceRayTracer
+ServiceRayTracer -> LancerServiceRayTracer: ServiceScene object
+deactivate ServiceRayTracer
+LancerServiceRayTracer -> ServiceRayTracer: exportObject(sc, 0)
+activate ServiceRayTracer
+ServiceRayTracer --> LancerServiceRayTracer: Stub object
+deactivate ServiceRayTracer
+LancerServiceRayTracer -> ServiceDistributeur: enregistrerEsclave(rc)
+activate ServiceDistributeur
+ServiceDistributeur --> LancerServiceRayTracer: void
+deactivate ServiceDistributeur
+LancerServiceRayTracer -> LancerServiceRayTracer: System.out.println("Le client s'est bien enregistré")
+LancerServiceRayTracer --> LancerServiceRayTracer: void
+
+Client -> LancerServiceClient: main(args)
+LancerServiceClient -> Registry: getRegistry(args[0], args[1])
+activate Registry
+Registry --> LancerServiceClient: Registry object
+deactivate Registry
+LancerServiceClient -> ServiceDistributeur: lookup("DistributeurFragments")
+activate ServiceDistributeur
+ServiceDistributeur --> LancerServiceClient: ServiceDistributeur object
+deactivate ServiceDistributeur
+LancerServiceClient -> ServiceClientImage: new ServiceClientImage(fichier, largeur, hauteur)
+activate ServiceClientImage
+ServiceClientImage -> LancerServiceClient: ServiceClientImage object
+deactivate ServiceClientImage
+LancerServiceClient -> ServiceClientImage: exportObject(serviceClient, 0)
+activate ServiceClientImage
+ServiceClientImage --> LancerServiceClient: Stub object
+deactivate ServiceClientImage
+LancerServiceClient -> ServiceDistributeur: genererImage(rdServiceClient, largeur, hauteur)
+activate ServiceDistributeur
+ServiceDistributeur --> LancerServiceClient: void
+deactivate ServiceDistributeur
+LancerServiceClient -> LancerServiceClient: System.out.println("Moi, le client, veux générer une image à partir de ce fichier : " + fichier)
+LancerServiceClient --> LancerServiceClient: void
+
+@enduml

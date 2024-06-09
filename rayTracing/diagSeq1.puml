@@ -1,0 +1,30 @@
+@startuml
+
+actor Client
+participant LancerServiceClient
+participant LancerRaytracer
+participant LancerServiceRayTracer
+participant Registry
+participant ServiceDistributeur
+participant ServiceRayTracer
+participant ServiceClientImage
+
+LancerRaytracer -> Registry: getRegistry("localhost")
+LancerRaytracer -> ServiceDistributeur: new ServiceDistributionRayTracer()
+LancerRaytracer -> ServiceDistributeur: exportObject(service, 0)
+LancerRaytracer -> Registry: rebind("DistributeurFragments", rd1)
+
+LancerServiceRayTracer -> Registry: getRegistry(args[0], port)
+LancerServiceRayTracer -> ServiceDistributeur: lookup("DistributeurFragments")
+LancerServiceRayTracer -> ServiceRayTracer: new ServiceScene()
+LancerServiceRayTracer -> ServiceRayTracer: exportObject(sc, 0)
+LancerServiceRayTracer -> ServiceDistributeur: enregistrerEsclave(rc)
+
+Client -> LancerServiceClient: main(args)
+LancerServiceClient -> Registry: getRegistry(args[0], args[1])
+LancerServiceClient -> ServiceDistributeur: lookup("DistributeurFragments")
+LancerServiceClient -> ServiceClientImage: new ServiceClientImage(fichier, largeur, hauteur)
+LancerServiceClient -> ServiceClientImage: exportObject(serviceClient, 0)
+LancerServiceClient -> ServiceDistributeur: genererImage(rdServiceClient, largeur, hauteur)
+
+@enduml

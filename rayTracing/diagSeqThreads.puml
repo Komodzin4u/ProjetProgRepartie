@@ -1,0 +1,48 @@
+@startuml
+
+actor Client
+participant LancerServiceClient
+participant ServiceDistributeur
+participant ServiceClientImage
+participant ServiceRayTracer
+participant ThreadCalculs
+
+Client -> LancerServiceClient: main(args)
+LancerServiceClient -> ServiceDistributeur: genererImage(rdServiceClient, largeur, hauteur)
+activate ServiceDistributeur
+
+alt Si servicesCalculs est vide
+    ServiceDistributeur --> LancerServiceClient: RemoteException
+else Si servicesCalculs n'est pas vide
+    loop Pour chaque fragment d'image
+        ServiceDistributeur -> ServiceRayTracer: estConnecte()
+        activate ServiceRayTracer
+        ServiceRayTracer --> ServiceDistributeur: void
+        deactivate ServiceRayTracer
+
+        ServiceDistributeur -> ThreadCalculs: new ThreadCalculs(...)
+        activate ThreadCalculs
+        ThreadCalculs -> ThreadCalculs: start()
+        deactivate ThreadCalculs
+    end
+    ServiceDistributeur --> LancerServiceClient: void
+end
+deactivate ServiceDistributeur
+
+== Calculs distribués par chaque Thread ==
+
+group Chaque ThreadCalculs
+    ThreadCalculs -> ServiceRayTracer: genererImage(x0, y0, l, h, scene)
+    activate ServiceRayTracer
+    ServiceRayTracer --> ThreadCalculs: Image object
+    deactivate ServiceRayTracer
+
+    ThreadCalculs -> ServiceClientImage: afficherFragment(image, x0, y0)
+    activate ServiceClientImage
+    ServiceClientImage --> ThreadCalculs: void
+    deactivate ServiceClientImage
+
+    ThreadCalculs --> ThreadCalculs: System.out.println("Thread(...): Fragment généré, envoie vers le client")
+end
+
+@enduml
