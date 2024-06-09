@@ -1,4 +1,11 @@
 # ProjetProgRepartie
+KOMODZINSKI Jawad  
+LOPPINET Stéphane  
+RYSAK Hugo  
+TROHA Stanislas  
+
+**S4 RA-IL 1**  
+*Dimanche 09 Juin 2024*
 
 Vidéo de démonstration de l'application en exécution :   
 
